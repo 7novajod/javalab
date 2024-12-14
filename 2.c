@@ -1,73 +1,58 @@
-#include <stdio.h>
-#include <string.h>
+public class Stack
+{
+    int top=-1;
+    private int MAX_SIZE=100;
+    int a[]=new int[MAX_SIZE];
 
-// Function to read a string
-void read(char *s) {
-    fgets(s, 100, stdin);
-    s[strcspn(s, "\n")] = '\0';  // Remove trailing newline
-}
+    void push(int X)
+    {
+        if(top==MAX_SIZE-1)
+        {
+            System.out.println("STACK OVERFLOW");
+            System.exit(1);
+        }
+        System.out.println("inserted element:"+X);
+        a[++top]=X;
+    }
+    int pop()
+    {
+        if(top==-1)
+        {
+            System.out.println("STACK EMPTY");
+            System.exit(1);
+        }
+        return a[top--];
+    }
+    public static void main(String args[])
+    {
+        Stack s =new Stack();
+        s.push(10);
+        s.push(20);
+        s.push(30);
+        s.push(40);   
+        s.push(50);
+        s.push(60);
+        s.push(70);
+        
+        System.out.println("the element removed is:"+s.pop());
+        System.out.println("the element removed is:"+s.pop());
+        System.out.println("the element removed is:"+s.pop());
 
-// Function to copy one string into another
-void strcopy(char *s1, char *s2) {
-    int i;
-    for (i = 0; s2[i] != '\0'; i++)
-        s1[i] = s2[i];
-    s1[i] = '\0';
-}
+        System.out.println("the element removed is:"+s.pop());
 
-// Function to match and replace a pattern in a string
-int matchnreplace(char *str, char *pat, char *rep) {
-    char ans[100];
-    int i = 0, m = 0, c = 0, j = 0, flag = 0, k;
+        System.out.println("the element removed is:"+s.pop());
 
-    while (str[c] != '\0') {
-        if (str[m] == pat[i]) {
-            i++;
-            m++;
-            if (pat[i] == '\0') {
-                flag = 1;
-                for (k = 0; rep[k] != '\0'; k++, j++)
-                    ans[j] = rep[k];
-                c = m;  // Update `c` to the end of the matched pattern
-            }
-        } else {
-            i = 0;
-            c++;
-            m = c;
-            ans[j] = str[c - 1];
-            j++;
+        System.out.println("the element removed is:"+s.pop());
+
+        System.out.println("the element removed is:"+s.pop());
+
+        System.out.println("the element removed is:"+s.pop());
+
+
+        System.out.println("the stack elements after removal are:");
+        for(int i=0;i<=s.top;i++)
+        {
+            System.out.println(s.a[i]);
         }
     }
-
-    // Copy the remaining part of the string
-    while (str[c] != '\0') {
-        ans[j++] = str[c++];
-    }
-
-    ans[j] = '\0';
-    strcopy(str, ans);
-    return flag;
-}
-
-int main() {
-    char str[100], pat[20], rep[20];
-    int flag = 0;
-
-    printf("Enter the string: ");
-    read(str);
-
-    printf("Enter the pattern: ");
-    read(pat);
-
-    printf("Enter the replacement string: ");
-    read(rep);
-
-    flag = matchnreplace(str, pat, rep);
-
-    if (flag == 1)
-        printf("The updated string is: %s\n", str);
-    else
-        printf("The pattern was not found.\n");
-
-    return 0;
 }
